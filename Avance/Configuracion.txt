@@ -1,0 +1,5 @@
+-Archivos de origen: glad.c y Main.cpp
+-En el archivo Main.cpp se encuentra los vertex shader y fragment shader
+-La arquitectura usada fue x86
+-La version de visual usada fue 2022
+-Las librerias usadas fueron: GLAD, GLFW, GLM
