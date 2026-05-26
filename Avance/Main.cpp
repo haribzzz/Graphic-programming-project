@@ -51,9 +51,9 @@ uniform vec3 lightDir;
 
 void main()
 {
-    vec3 objectColor = vec3(0.7);
+    vec3 objectColor = vec3(0.75);
 
-    vec3 ambient = vec3(0.03);
+    vec3 ambient = vec3(0.02);
 
     vec3 norm = normalize(Normal);
 
@@ -67,7 +67,7 @@ void main()
         );
 
     float intensity =
-        smoothstep(0.90, 0.95, theta);
+        smoothstep(0.90, 0.97, theta);
 
     float diff =
         max(dot(norm, lightDirection), 0.0);
@@ -88,7 +88,7 @@ void main()
 // CAMARA
 // =====================================
 
-glm::vec3 cameraPos = glm::vec3(0.0f, 1.0f, 0.0f);
+glm::vec3 cameraPos = glm::vec3(0.0f, 1.0f, 2.0f);
 
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 
@@ -108,16 +108,6 @@ float lastX = 640.0f;
 float lastY = 360.0f;
 
 bool firstMouse = true;
-
-// =====================================
-// COLISIONES
-// =====================================
-
-float roomLimit = 4.5f;
-
-float floorHeight = 0.0f;
-
-float ceilingHeight = 4.0f;
 
 // =====================================
 // SALTO
@@ -188,13 +178,9 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 
 void processInput(GLFWwindow* window)
 {
-    float speed = 3.0f * deltaTime;
+    float speed = 3.5f * deltaTime;
 
     glm::vec3 previousPos = cameraPos;
-
-    // =====================================
-    // MOVIMIENTO FPS
-    // =====================================
 
     glm::vec3 forward;
 
@@ -240,60 +226,58 @@ void processInput(GLFWwindow* window)
         onGround = false;
     }
 
-    // =====================================
-    // GRAVEDAD
-    // =====================================
-
     velocityY += gravity * deltaTime;
 
     cameraPos.y += velocityY * deltaTime;
 
-    // =====================================
-    // COLISION PISO
-    // =====================================
-
-    float playerHeight = 1.0f;
-
-    if (cameraPos.y <= floorHeight + playerHeight)
+    if (cameraPos.y <= 1.0f)
     {
-        cameraPos.y = floorHeight + playerHeight;
+        cameraPos.y = 1.0f;
 
         velocityY = 0.0f;
 
         onGround = true;
     }
 
-    // =====================================
-    // COLISION TECHO
-    // =====================================
-
-    if (cameraPos.y > ceilingHeight)
+    if (cameraPos.y > 4.0f)
     {
-        cameraPos.y = ceilingHeight;
+        cameraPos.y = 4.0f;
 
         velocityY = 0.0f;
     }
 
     // =====================================
-    // COLISIONES PAREDES
+    // COLISIONES
     // =====================================
-    cameraPos.x =
-        glm::clamp(
-            cameraPos.x,
-            -roomLimit,
-            roomLimit
-        );
 
-    cameraPos.z =
-        glm::clamp(
-            cameraPos.z,
-            -roomLimit,
-            roomLimit
-        );
+    bool inRoom1 =
+        (
+            cameraPos.x > -5.0f &&
+            cameraPos.x < 5.0f &&
+            cameraPos.z < 5.0f &&
+            cameraPos.z > -5.0f
+            );
 
-    // =====================================
-    // ESC
-    // =====================================
+    bool inHallway =
+        (
+            cameraPos.x > -1.5f &&
+            cameraPos.x < 1.5f &&
+            cameraPos.z < -5.0f &&
+            cameraPos.z > -13.0f
+            );
+
+    bool inRoom2 =
+        (
+            cameraPos.x > -5.0f &&
+            cameraPos.x < 5.0f &&
+            cameraPos.z < -13.0f &&
+            cameraPos.z > -23.0f
+            );
+
+    if (!inRoom1 && !inHallway && !inRoom2)
+    {
+        cameraPos = previousPos;
+    }
 
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
@@ -315,15 +299,20 @@ int main()
         GLFW_OPENGL_CORE_PROFILE
     );
 
-    GLFWwindow* window = glfwCreateWindow(
-        1280,
-        720,
-        "DarkZone",
-        NULL,
-        NULL
-    );
+    GLFWwindow* window =
+        glfwCreateWindow(
+            1280,
+            720,
+            "DarkZone",
+            NULL,
+            NULL
+        );
 
     glfwMakeContextCurrent(window);
+
+    gladLoadGLLoader(
+        (GLADloadproc)glfwGetProcAddress
+    );
 
     glfwSetCursorPosCallback(window, mouse_callback);
 
@@ -331,10 +320,6 @@ int main()
         window,
         GLFW_CURSOR,
         GLFW_CURSOR_DISABLED
-    );
-
-    gladLoadGLLoader(
-        (GLADloadproc)glfwGetProcAddress
     );
 
     glEnable(GL_DEPTH_TEST);
@@ -377,60 +362,52 @@ int main()
     glLinkProgram(shaderProgram);
 
     // =====================================
-    // VERTICES
+    // VERTICES CUBO
     // =====================================
 
     float vertices[] =
     {
-        // posiciones          // normales
+        -0.5f,-0.5f,-0.5f,0,0,-1,
+         0.5f,-0.5f,-0.5f,0,0,-1,
+         0.5f, 0.5f,-0.5f,0,0,-1,
+         0.5f, 0.5f,-0.5f,0,0,-1,
+        -0.5f, 0.5f,-0.5f,0,0,-1,
+        -0.5f,-0.5f,-0.5f,0,0,-1,
 
-        -0.5f,-0.5f,-0.5f, 0,0,-1,
-         0.5f,-0.5f,-0.5f, 0,0,-1,
-         0.5f, 0.5f,-0.5f, 0,0,-1,
+        -0.5f,-0.5f,0.5f,0,0,1,
+         0.5f,-0.5f,0.5f,0,0,1,
+         0.5f,0.5f,0.5f,0,0,1,
+         0.5f,0.5f,0.5f,0,0,1,
+        -0.5f,0.5f,0.5f,0,0,1,
+        -0.5f,-0.5f,0.5f,0,0,1,
 
-         0.5f, 0.5f,-0.5f, 0,0,-1,
-        -0.5f, 0.5f,-0.5f, 0,0,-1,
-        -0.5f,-0.5f,-0.5f, 0,0,-1,
-
-        -0.5f,-0.5f, 0.5f, 0,0,1,
-         0.5f,-0.5f, 0.5f, 0,0,1,
-         0.5f, 0.5f, 0.5f, 0,0,1,
-
-         0.5f, 0.5f, 0.5f, 0,0,1,
-        -0.5f, 0.5f, 0.5f, 0,0,1,
-        -0.5f,-0.5f, 0.5f, 0,0,1,
-
-        -0.5f, 0.5f, 0.5f,-1,0,0,
-        -0.5f, 0.5f,-0.5f,-1,0,0,
+        -0.5f,0.5f,0.5f,-1,0,0,
+        -0.5f,0.5f,-0.5f,-1,0,0,
         -0.5f,-0.5f,-0.5f,-1,0,0,
-
         -0.5f,-0.5f,-0.5f,-1,0,0,
-        -0.5f,-0.5f, 0.5f,-1,0,0,
-        -0.5f, 0.5f, 0.5f,-1,0,0,
+        -0.5f,-0.5f,0.5f,-1,0,0,
+        -0.5f,0.5f,0.5f,-1,0,0,
 
-         0.5f, 0.5f, 0.5f,1,0,0,
-         0.5f, 0.5f,-0.5f,1,0,0,
+         0.5f,0.5f,0.5f,1,0,0,
+         0.5f,0.5f,-0.5f,1,0,0,
          0.5f,-0.5f,-0.5f,1,0,0,
-
          0.5f,-0.5f,-0.5f,1,0,0,
-         0.5f,-0.5f, 0.5f,1,0,0,
-         0.5f, 0.5f, 0.5f,1,0,0,
+         0.5f,-0.5f,0.5f,1,0,0,
+         0.5f,0.5f,0.5f,1,0,0,
 
         -0.5f,-0.5f,-0.5f,0,-1,0,
          0.5f,-0.5f,-0.5f,0,-1,0,
-         0.5f,-0.5f, 0.5f,0,-1,0,
-
-         0.5f,-0.5f, 0.5f,0,-1,0,
-        -0.5f,-0.5f, 0.5f,0,-1,0,
+         0.5f,-0.5f,0.5f,0,-1,0,
+         0.5f,-0.5f,0.5f,0,-1,0,
+        -0.5f,-0.5f,0.5f,0,-1,0,
         -0.5f,-0.5f,-0.5f,0,-1,0,
 
-        -0.5f, 0.5f,-0.5f,0,1,0,
-         0.5f, 0.5f,-0.5f,0,1,0,
-         0.5f, 0.5f, 0.5f,0,1,0,
-
-         0.5f, 0.5f, 0.5f,0,1,0,
-        -0.5f, 0.5f, 0.5f,0,1,0,
-        -0.5f, 0.5f,-0.5f,0,1,0
+        -0.5f,0.5f,-0.5f,0,1,0,
+         0.5f,0.5f,-0.5f,0,1,0,
+         0.5f,0.5f,0.5f,0,1,0,
+         0.5f,0.5f,0.5f,0,1,0,
+        -0.5f,0.5f,0.5f,0,1,0,
+        -0.5f,0.5f,-0.5f,0,1,0
     };
 
     GLuint VAO, VBO;
@@ -486,7 +463,7 @@ int main()
 
         processInput(window);
 
-        glClearColor(0.01f, 0.01f, 0.01f, 1.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         glClear(
             GL_COLOR_BUFFER_BIT |
@@ -494,10 +471,6 @@ int main()
         );
 
         glUseProgram(shaderProgram);
-
-        // =====================================
-        // LINTERNA
-        // =====================================
 
         glUniform3f(
             glGetUniformLocation(shaderProgram, "lightPos"),
@@ -513,30 +486,10 @@ int main()
             cameraFront.z
         );
 
-        // =====================================
-        // VIEW MATRIX
-        // =====================================
-
-        glm::vec3 lookDirection;
-
-        lookDirection.x =
-            cos(glm::radians(yaw)) *
-            cos(glm::radians(pitch));
-
-        lookDirection.y =
-            sin(glm::radians(pitch));
-
-        lookDirection.z =
-            sin(glm::radians(yaw)) *
-            cos(glm::radians(pitch));
-
-        lookDirection =
-            glm::normalize(lookDirection);
-
         glm::mat4 view =
             glm::lookAt(
                 cameraPos,
-                cameraPos + lookDirection,
+                cameraPos + cameraFront,
                 cameraUp
             );
 
@@ -573,140 +526,168 @@ int main()
 
         glBindVertexArray(VAO);
 
+        auto drawCube = [&](glm::vec3 pos, glm::vec3 scale)
+            {
+                glm::mat4 model = glm::mat4(1.0f);
+
+                model =
+                    glm::translate(model, pos);
+
+                model =
+                    glm::scale(model, scale);
+
+                glUniformMatrix4fv(
+                    modelLoc,
+                    1,
+                    GL_FALSE,
+                    glm::value_ptr(model)
+                );
+
+                glDrawArrays(GL_TRIANGLES, 0, 36);
+            };
+
         // =====================================
+        // HABITACION 1
+        // =====================================
+
         // PISO
-        // =====================================
-
-        glm::mat4 floorModel = glm::mat4(1.0f);
-
-        floorModel =
-            glm::translate(
-                floorModel,
-                glm::vec3(0.0f, -1.0f, 0.0f)
-            );
-
-        floorModel =
-            glm::scale(
-                floorModel,
-                glm::vec3(10.0f, 0.1f, 10.0f)
-            );
-
-        glUniformMatrix4fv(
-            modelLoc,
-            1,
-            GL_FALSE,
-            glm::value_ptr(floorModel)
+        drawCube(
+            glm::vec3(0, -1, 0),
+            glm::vec3(10, 0.1, 10)
         );
 
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-
-        // ==================================== =
-        // PARED TRASERA
-        // =====================================
-
-        glm::mat4 backWall = glm::mat4(1.0f);
-
-        backWall =
-            glm::translate(
-                backWall,
-                glm::vec3(0.0f, 2.0f, -5.0f)
-            );
-
-        backWall =
-            glm::scale(
-                backWall,
-                glm::vec3(10.0f, 5.0f, 0.1f)
-            );
-
-        glUniformMatrix4fv(
-            modelLoc,
-            1,
-            GL_FALSE,
-            glm::value_ptr(backWall)
-        );
-
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-
-        // =====================================
-        // PARED IZQUIERDA
-        // =====================================
-
-        glm::mat4 leftWall = glm::mat4(1.0f);
-
-        leftWall =
-            glm::translate(
-                leftWall,
-                glm::vec3(-5.0f, 2.0f, 0.0f)
-            );
-
-        leftWall =
-            glm::scale(
-                leftWall,
-                glm::vec3(0.1f, 5.0f, 10.0f)
-            );
-
-        glUniformMatrix4fv(
-            modelLoc,
-            1,
-            GL_FALSE,
-            glm::value_ptr(leftWall)
-        );
-
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-
-        // =====================================
-        // PARED DERECHA
-        // =====================================
-
-        glm::mat4 rightWall = glm::mat4(1.0f);
-
-        rightWall =
-            glm::translate(
-                rightWall,
-                glm::vec3(5.0f, 2.0f, 0.0f)
-            );
-
-        rightWall =
-            glm::scale(
-                rightWall,
-                glm::vec3(0.1f, 5.0f, 10.0f)
-            );
-
-        glUniformMatrix4fv(
-            modelLoc,
-            1,
-            GL_FALSE,
-            glm::value_ptr(rightWall)
-        );
-
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-
-        // =====================================
         // TECHO
-        // =====================================
-
-        glm::mat4 ceiling = glm::mat4(1.0f);
-
-        ceiling =
-            glm::translate(
-                ceiling,
-                glm::vec3(0.0f, 4.5f, 0.0f)
-            );
-
-        ceiling =
-            glm::scale(
-                ceiling,
-                glm::vec3(10.0f, 0.1f, 10.0f)
-            );
-
-        glUniformMatrix4fv(
-            modelLoc,
-            1,
-            GL_FALSE,
-            glm::value_ptr(ceiling)
+        drawCube(
+            glm::vec3(0, 4.05, 0),
+            glm::vec3(10, 0.3, 10)
         );
 
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        // PARED IZQUIERDA
+        drawCube(
+            glm::vec3(-5, 1.5, 0),
+            glm::vec3(0.1, 5.2, 10)
+        );
+
+        // PARED DERECHA
+        drawCube(
+            glm::vec3(5, 1.5, 0),
+            glm::vec3(0.1, 5.2, 10)
+        );
+
+        // =====================================
+        // PARED DELANTERA
+        // =====================================
+
+        drawCube(
+            glm::vec3(0, 1.5, 5),
+            glm::vec3(10, 5.2, 0.1)
+        );
+
+        // =====================================
+        // PARED TRASERA CON AGUJERO
+        // =====================================
+
+        // IZQUIERDA
+        drawCube(
+            glm::vec3(-3.25f, 1.5f, -5),
+            glm::vec3(3.5f, 5.2f, 0.1f)
+        );
+
+        // DERECHA
+        drawCube(
+            glm::vec3(3.25f, 1.5f, -5),
+            glm::vec3(3.5f, 5.2f, 0.1f)
+        );
+
+        // SUPERIOR
+        drawCube(
+            glm::vec3(0, 4, -5),
+            glm::vec3(3, 1, 0.1f)
+        );
+
+        // =====================================
+        // PASILLO
+        // =====================================
+
+        // PISO
+        drawCube(
+            glm::vec3(0, -1, -9),
+            glm::vec3(3, 0.1, 8)
+        );
+
+        // TECHO
+        drawCube(
+            glm::vec3(0, 4.05, -9),
+            glm::vec3(3, 0.3, 8)
+        );
+
+        // PARED IZQUIERDA
+        drawCube(
+            glm::vec3(-1.5, 1.5, -9),
+            glm::vec3(0.1, 5.2, 8)
+        );
+
+        // PARED DERECHA
+        drawCube(
+            glm::vec3(1.5, 1.5, -9),
+            glm::vec3(0.1, 5.2, 8)
+        );
+
+        // =====================================
+        // ENTRADA HABITACION 2
+        // =====================================
+
+        // IZQUIERDA
+        drawCube(
+            glm::vec3(-3.25f, 1.5f, -13),
+            glm::vec3(3.5f, 5.2f, 0.1f)
+        );
+
+        // DERECHA
+        drawCube(
+            glm::vec3(3.25f, 1.5f, -13),
+            glm::vec3(3.5f, 5.2f, 0.1f)
+        );
+
+        // SUPERIOR
+        drawCube(
+            glm::vec3(0, 4, -13),
+            glm::vec3(3, 1, 0.1f)
+        );
+
+        // =====================================
+        // HABITACION 2
+        // =====================================
+
+        // PISO
+        drawCube(
+            glm::vec3(0, -1, -18),
+            glm::vec3(10, 0.1, 10)
+        );
+
+        // TECHO
+        drawCube(
+            glm::vec3(0, 4.05, -18),
+            glm::vec3(10, 0.3, 10)
+        );
+
+        // PARED IZQUIERDA
+        drawCube(
+            glm::vec3(-5, 1.5, -18),
+            glm::vec3(0.1, 5.2, 10)
+        );
+
+        // PARED DERECHA
+        drawCube(
+            glm::vec3(5, 1.5, -18),
+            glm::vec3(0.1, 5.2, 10)
+        );
+
+        // PARED FINAL
+        drawCube(
+            glm::vec3(0, 1.5, -23),
+            glm::vec3(10, 5.2, 0.1)
+        );
 
         glfwSwapBuffers(window);
 
