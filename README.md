@@ -1,4 +1,4 @@
-# Proyecto-de-Programaci-n-Gr-fica
+# Graphic programming project
 
 # Colaboradores y/o Autores
 # Aura Abihail Robleto Valdivia.
