@@ -1,6 +1,6 @@
 # Graphic programming project
 
-# Colaboradores y/o Autores
+# Contributors and/or Authors
 # Aura Abihail Robleto Valdivia.
 # Idhe Isabel Cross Ramirez.
 # Edith Maria Rayo Rocha.
