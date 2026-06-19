@@ -1,7 +1,7 @@
 # Graphic programming project
 
 # Contributors and/or Authors
-# Aura Abihail Robleto Valdivia.
-# Idhe Isabel Cross Ramirez.
-# Edith Maria Rayo Rocha.
-# Harisema Milagros Ampie Amaya.
+# Robleto Valdivia Aura Abihail.
+# Cross Ramirez Idhe Isabel.
+# Rayo Rocha Edith Maria.
+# Ampie Amaya Harisema Milagros.
