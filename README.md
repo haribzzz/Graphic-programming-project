@@ -69,7 +69,7 @@ Project/
 ## How to Clone the Repository
 
 ```bash
-git clone https://github.com/USERNAME/REPOSITORY.git
+https://github.com/haribzzz/Graphic-programming-project.git
 ```
 
 Replace `USERNAME` and `REPOSITORY` with the corresponding GitHub repository information.
