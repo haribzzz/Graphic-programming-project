@@ -52,17 +52,36 @@ The player explores an abandoned scientific laboratory and must restore the powe
 ```text
 Project/
 │
-├── Main.cpp
-├── Model.h / Model.cpp
-├── Mesh.h / Mesh.cpp
-├── Enemy.h / Enemy.cpp
-├── Menu.h / Menu.cpp
-├── TextRenderer.h / TextRenderer.cpp
-├── Interaction.h / Interaction.cpp
+├── Origen/
+        ├── Main.cpp
+        ├── Model.cpp
+        ├── Mesh.cpp
+        ├── Enemy.cpp
+        ├── Menu.cpp
+        ├── TextRenderer.cpp
+        ├── Interaction.cpp
+├── Origen/
+        ├── Model.h
+        ├── Mesh.h  
+        ├── Enemy.h  
+        ├── Menu.h 
+        ├── TextRenderer.h 
+        ├── Interaction.h 
 ├── Shaders/
+        ├── skybox.frag
+        ├── skybox.vert 
+        ├── default.frag  
+        ├── default.vert
 ├── Models/
+├── Librerias/
+        ├── stb_image/
+        ├── Assimp/ 
+        ├── GLAD/ 
+        ├── GLFW/
+        ├── glm/
 ├── Textures/
-├── Audio/
+├── Sonidos/
+├── README_ES.md
 └── README.md
 ```
 
@@ -114,10 +133,20 @@ Replace `USERNAME` and `REPOSITORY` with the corresponding GitHub repository inf
 Add screenshots of:
 
 * Main Menu
+  <img width="1365" height="694" alt="image" src="https://github.com/user-attachments/assets/5ce6527c-2f9c-4f6c-bfcc-1e4c635c6b7e" />
+
 * Laboratory Environment
+  <img width="1365" height="693" alt="image" src="https://github.com/user-attachments/assets/f1e42108-81e1-4ab0-9f34-72eadd3281c9" />
+
 * Enemy Encounter
+  <img width="1365" height="697" alt="image" src="https://github.com/user-attachments/assets/27fffaa6-55c5-413a-82df-ca75d016cef9" />
+
 * Power Box Minigame
+  <img width="1365" height="698" alt="image" src="https://github.com/user-attachments/assets/d79b18e4-b2dd-44b8-b415-117bde203ef0" />
+
 * Victory Screen
+  <img width="1365" height="693" alt="image" src="https://github.com/user-attachments/assets/09d8717b-0974-4bbe-a4a9-ae57dd44e3b6" />
+
 
 ---
 
