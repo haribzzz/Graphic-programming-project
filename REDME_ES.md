@@ -50,7 +50,7 @@ El jugador explora un laboratorio científico abandonado y debe restaurar el sum
 ## Estructura del Proyecto
 
 ```text
-Project/
+Proyecto_DarkZone/
 │
 ├── Origen/
         ├── Main.cpp
@@ -144,9 +144,17 @@ Agregar capturas de:
   <img width="1365" height="694" alt="image" src="https://github.com/user-attachments/assets/5a394aa7-d1c9-422d-9f5e-fcc7b1380843" />
 
 * Entorno del laboratorio
+  <img width="1365" height="693" alt="image" src="https://github.com/user-attachments/assets/7a85f3fc-a773-4dd0-a6fd-efd18e6d7024" />
+
 * Encuentro con el enemigo
+  <img width="1365" height="697" alt="image" src="https://github.com/user-attachments/assets/9f18d8a9-1561-4ccc-9086-f8b122ca7558" />
+
 * Minijuego de PowerBox
+  <img width="1365" height="698" alt="image" src="https://github.com/user-attachments/assets/4ef361c0-adc3-479a-8d68-6cc2b30a8871" />
+
 * Pantalla de victoria
+  <img width="1365" height="693" alt="image" src="https://github.com/user-attachments/assets/54d7359c-988c-44e5-a0fb-21e9f7a2097a" />
+
 
 ---
 
