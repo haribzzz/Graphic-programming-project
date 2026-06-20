@@ -52,17 +52,36 @@ El jugador explora un laboratorio científico abandonado y debe restaurar el sum
 ```text
 Project/
 │
-├── Main.cpp
-├── Model.h / Model.cpp
-├── Mesh.h / Mesh.cpp
-├── Enemy.h / Enemy.cpp
-├── Menu.h / Menu.cpp
-├── TextRenderer.h / TextRenderer.cpp
-├── Interaction.h / Interaction.cpp
+├── Origen/
+        ├── Main.cpp
+        ├── Model.cpp
+        ├── Mesh.cpp
+        ├── Enemy.cpp
+        ├── Menu.cpp
+        ├── TextRenderer.cpp
+        ├── Interaction.cpp
+├── Origen/
+        ├── Model.h
+        ├── Mesh.h  
+        ├── Enemy.h  
+        ├── Menu.h 
+        ├── TextRenderer.h 
+        ├── Interaction.h 
 ├── Shaders/
+        ├── skybox.frag
+        ├── skybox.vert 
+        ├── default.frag  
+        ├── default.vert
 ├── Models/
+├── Librerias/
+        ├── stb_image/
+        ├── Assimp/ 
+        ├── GLAD/ 
+        ├── GLFW/
+        ├── glm/
 ├── Textures/
-├── Audio/
+├── Sonidos/
+├── README_ES.md
 └── README.md
 ```
 
@@ -122,6 +141,8 @@ cd Graphic-programming-project
 Agregar capturas de:
 
 * Menú principal
+  <img width="1365" height="694" alt="image" src="https://github.com/user-attachments/assets/5a394aa7-d1c9-422d-9f5e-fcc7b1380843" />
+
 * Entorno del laboratorio
 * Encuentro con el enemigo
 * Minijuego de PowerBox
