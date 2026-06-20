@@ -2,7 +2,7 @@
 
 ## About the Project
 
-DarkZone: Abandoned Laboratory is a first-person horror game developed as the final project for the Computer Graphics course at the National University of Engineering (UNI).
+DarkZone: Abandoned Laboratory is a first-person horror game developed as the final project for the Computer Graphics course at the National University of Engineering (UNI, Nicaragua).
 
 The player explores an abandoned scientific laboratory and must restore the power supply by activating two control boxes located throughout the map. While completing objectives, the player must avoid a hostile creature that patrols the facility. The game creates a tense atmosphere through dynamic lighting, a limited flashlight battery system, environmental audio, and a night skybox.
 
