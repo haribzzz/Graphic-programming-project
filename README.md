@@ -60,6 +60,7 @@ Project/
         ├── Menu.cpp
         ├── TextRenderer.cpp
         ├── Interaction.cpp
+        ├── glad.c
 ├── Encabezado/
         ├── Model.h
         ├── Mesh.h  
@@ -72,7 +73,6 @@ Project/
         ├── skybox.vert 
         ├── default.frag  
         ├── default.vert
-├── Models/
 ├── Librerias/
         ├── stb_image/
         ├── Assimp/ 
