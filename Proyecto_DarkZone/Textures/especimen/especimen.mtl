@@ -1,1 +1,25 @@
+# Blender 5.1.2 MTL File: 'None'
+# www.blender.org
 
+newmtl Creature.001
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd Creature_LP_Creature_Roughness.1001.jpg
+map_Ks Creature_LP_Creature_NormalGL.1001.jpg
+map_Ke Creature_LP_Creature_BaseColor.1001.jpg
+
+newmtl Tank
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+
+map_Ks Tank_Roughness.jpg
