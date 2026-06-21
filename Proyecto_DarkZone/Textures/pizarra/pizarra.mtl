@@ -1,1 +1,14 @@
+# Blender 5.1.2 MTL File: 'None'
+# www.blender.org
 
+newmtl M_Bunker_CorkBoard_A
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd T_Bunker_CorkBoard_A_BC_Pln.jpg
+map_Ns T_Bunker_CorkBoard_A_BC.jpg
+map_refl T_Bunker_CorkBoard_A_M.jpg
+map_Bump -bm 1.000000 T_Bunker_CorkBoard_A_N.jpg
