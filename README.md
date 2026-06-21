@@ -10,10 +10,10 @@ The player explores an abandoned scientific laboratory and must restore the powe
 
 ## Authors
 
-* Aura Abihail Robleto Valdivia
-* Idhe Isabel Cross Ramírez
-* Harisema Milagros Ampie Amaya
-* Edith María Rayo Rocha
+* Robleto Valdivia Aura Abihail 
+* Cross Ramírez Idhe Isabel
+* Ampie Amaya Harisema Milagros 
+* Rayo Rocha Edith María 
 
 ---
 
@@ -60,7 +60,7 @@ Project/
         ├── Menu.cpp
         ├── TextRenderer.cpp
         ├── Interaction.cpp
-├── Origen/
+├── Encabezado/
         ├── Model.h
         ├── Mesh.h  
         ├── Enemy.h  
