@@ -24,6 +24,7 @@ ma_engine audioEngine;
 ma_sound  footstepsSound;
 bool      footstepsInitialized = false;
 
+float stepTimer = 0.0f;
 // =====================================
 // SHADERS
 // =====================================
@@ -84,31 +85,40 @@ out vec4 FragColor;
 in vec3 FragPos;
 in vec3 Normal;
 in vec2 TexCoord;
+
 uniform sampler2D texture1;
 uniform sampler2D texture2;
 uniform sampler2D texture3;
 uniform sampler2D texture4;
 uniform sampler2D texture5;
 uniform bool useMultiTexture;
+
 uniform vec3 lightPos;
 uniform vec3 lightDir;
 uniform bool flashlightOn;
+
 uniform vec3 lampPos;
 uniform vec3 lampPos2;
 uniform vec3 lampPos3;
 uniform vec3 lampPos4;
+uniform vec3 lampPos5;
+uniform vec3 lampPos6;
+
 uniform bool lampara1On;
 uniform bool lampara2On;
 uniform bool lampara3On;
 uniform bool lampara4On;
+uniform bool lampara5On;
+uniform bool lampara6On;
+
 void main()
 {
     vec3 color;
     if (useMultiTexture)
     {
-        vec3  diffuse = texture(texture1, TexCoord).rgb;
-        float ao      = texture(texture2, TexCoord).r;
-        float metal   = texture(texture4, TexCoord).r;
+        vec3 diffuse = texture(texture1, TexCoord).rgb;
+        float ao = texture(texture2, TexCoord).r;
+        float metal = texture(texture4, TexCoord).r;
         color = diffuse * ao;
         color = mix(color, color * 0.5, metal);
     }
@@ -116,55 +126,76 @@ void main()
     {
         color = texture(texture1, TexCoord).rgb;
     }
+
     vec3 norm = normalize(Normal);
     vec3 ambient = color * 0.08;
+
     vec3 flashlight = vec3(0.0);
     if (flashlightOn)
     {
-        vec3  toFrag      = normalize(FragPos - lightPos);
-        float theta       = dot(toFrag, normalize(lightDir));
+        vec3 toFrag = normalize(FragPos - lightPos);
+        float theta = dot(toFrag, normalize(lightDir));
         float innerCutoff = 0.978;
         float outerCutoff = 0.956;
-        float coneInt     = smoothstep(outerCutoff, innerCutoff, theta);
-        vec3  ldir        = normalize(lightPos - FragPos);
-        float diff        = abs(dot(norm, ldir));
-        float dist        = length(lightPos - FragPos);
-        float att         = 1.0 / (1.0 + 0.09*dist + 0.032*dist*dist);
+        float coneInt = smoothstep(outerCutoff, innerCutoff, theta);
+        vec3 ldir = normalize(lightPos - FragPos);
+        float diff = abs(dot(norm, ldir));
+        float dist = length(lightPos - FragPos);
+        float att = 1.0 / (1.0 + 0.09 * dist + 0.032 * dist * dist);
         flashlight = diff * coneInt * att * 3.0 * vec3(1.0, 0.98, 0.9);
     }
-    vec3 lampLight  = vec3(0.0);
+
+    vec3 lampLight = vec3(0.0);
     vec3 lampLight2 = vec3(0.0);
     vec3 lampLight3 = vec3(0.0);
     vec3 lampLight4 = vec3(0.0);
+    vec3 lampLight5 = vec3(0.0);
+    vec3 lampLight6 = vec3(0.0);
+
     if (lampara1On) {
-        vec3  d  = normalize(lampPos - FragPos);
+        vec3 d = normalize(lampPos - FragPos);
         float df = abs(dot(norm, d));
         float ds = length(lampPos - FragPos);
-        float a  = 1.0 / (1.0 + 0.015*ds + 0.003*ds*ds);
+        float a = 1.0 / (1.0 + 0.015 * ds + 0.003 * ds * ds);
         lampLight = df * a * 2.2 * vec3(1.0, 0.95, 0.8);
     }
     if (lampara2On) {
-        vec3  d  = normalize(lampPos2 - FragPos);
+        vec3 d = normalize(lampPos2 - FragPos);
         float df = abs(dot(norm, d));
         float ds = length(lampPos2 - FragPos);
-        float a  = 1.0 / (1.0 + 0.015*ds + 0.003*ds*ds);
+        float a = 1.0 / (1.0 + 0.015 * ds + 0.003 * ds * ds);
         lampLight2 = df * a * 2.2 * vec3(1.0, 0.95, 0.8);
     }
     if (lampara3On) {
-        vec3  d  = normalize(lampPos3 - FragPos);
+        vec3 d = normalize(lampPos3 - FragPos);
         float df = abs(dot(norm, d));
         float ds = length(lampPos3 - FragPos);
-        float a  = 1.0 / (1.0 + 0.015*ds + 0.003*ds*ds);
+        float a = 1.0 / (1.0 + 0.015 * ds + 0.003 * ds * ds);
         lampLight3 = df * a * 2.2 * vec3(1.0, 0.95, 0.8);
     }
     if (lampara4On) {
-        vec3  d  = normalize(lampPos4 - FragPos);
+        vec3 d = normalize(lampPos4 - FragPos);
         float df = abs(dot(norm, d));
         float ds = length(lampPos4 - FragPos);
-        float a  = 1.0 / (1.0 + 0.015*ds + 0.003*ds*ds);
+        float a = 1.0 / (1.0 + 0.015 * ds + 0.003 * ds * ds);
         lampLight4 = df * a * 2.2 * vec3(1.0, 0.95, 0.8);
     }
-    vec3 result = (ambient + flashlight + lampLight + lampLight2 + lampLight3 + lampLight4) * color;
+    if (lampara5On) {
+        vec3 d = normalize(lampPos5 - FragPos);
+        float df = abs(dot(norm, d));
+        float ds = length(lampPos5 - FragPos);
+        float a = 1.0 / (1.0 + 0.015 * ds + 0.003 * ds * ds);
+        lampLight5 = df * a * 2.2 * vec3(1.0, 0.95, 0.8);
+    }
+    if (lampara6On) {
+        vec3 d = normalize(lampPos6 - FragPos);
+        float df = abs(dot(norm, d));
+        float ds = length(lampPos6 - FragPos);
+        float a = 1.0 / (1.0 + 0.015 * ds + 0.003 * ds * ds);
+        lampLight6 = df * a * 2.2 * vec3(1.0, 0.95, 0.8);
+    }
+
+    vec3 result = (ambient + flashlight + lampLight + lampLight2 + lampLight3 + lampLight4 + lampLight5 + lampLight6) * color;
     FragColor = vec4(result, 1.0);
 }
 )";
@@ -263,7 +294,7 @@ void LoadCollisionMesh(const char* path, float scale)
             tri.b = toV(face.mIndices[1]);
             tri.c = toV(face.mIndices[2]);
 
-            const float RADIUS = 0.8f;
+            const float RADIUS = 0.0000000008f;
             tri.minX = glm::min(glm::min(tri.a.x, tri.b.x), tri.c.x) - RADIUS;
             tri.maxX = glm::max(glm::max(tri.a.x, tri.b.x), tri.c.x) + RADIUS;
             tri.minZ = glm::min(glm::min(tri.a.z, tri.b.z), tri.c.z) - RADIUS;
@@ -467,11 +498,15 @@ bool lampara1Activa = false;
 bool lampara2Activa = false;
 bool lampara3Activa = false;
 bool lampara4Activa = false;
+bool lampara5Activa = false;  
+bool lampara6Activa = false;  
 
 const glm::vec3 lampEntrada = glm::vec3(-14.5f, MAZE_CEILING_Y - 0.2f, 0.0f);
 const glm::vec3 lampHab1 = glm::vec3(12.2f, MAZE_CEILING_Y - 0.2f, 21.3f);
 const glm::vec3 lampHab2 = glm::vec3(-4.9f, MAZE_CEILING_Y - 0.2f, -22.4f);
 const glm::vec3 lampHab3 = glm::vec3(58.4f, MAZE_CEILING_Y - 0.2f, -27.5f);
+const glm::vec3 lampHab4 = glm::vec3(80.0f, MAZE_CEILING_Y - 0.2f, -45.0f);  
+const glm::vec3 lampHab5 = glm::vec3(60.0f, MAZE_CEILING_Y - 0.2f, -25.0f);  
 
 // =====================================
 // SCREEN / CAMERA
@@ -598,6 +633,8 @@ void ResetGame()
     lampara2Activa = false;
     lampara3Activa = false;
     lampara4Activa = false;
+    lampara5Activa = false;  
+    lampara6Activa = false;  
 
     cursorFree = false;
     pauseMenuOpen = false;
@@ -745,8 +782,6 @@ void processInput(GLFWwindow* window)
         cameraPos.y = currentEyeHeight;
     }
 
-    // Colision por malla real (Colisiones.obj) como sistema principal.
-    // Si la malla no cargo (vacia), usamos las zonas AABB como respaldo.
     bool inMesh = collisionMesh.empty()
         ? InAnyMazeZone(cameraPos)
         : CollidesWithMesh(cameraPos);
@@ -762,14 +797,14 @@ void processInput(GLFWwindow* window)
             cameraPos.z > minZ && cameraPos.z < maxZ;
         };
 
-    // Escalera — (-27, -2)
-    if (hitBox(-28.5f, -25.5f, -3.5f, 0.5f)) cameraPos = previousPos;
+    // Escalera — (-27, -2) — REDUCIDO para no bloquear el pasillo
+    if (hitBox(-27.8f, -26.2f, -2.8f, -1.2f)) cameraPos = previousPos;
 
-    // Computadora entrada — (-25, 3)
-    if (hitBox(-26.0f, -24.0f, 1.8f, 4.2f)) cameraPos = previousPos;
+    // Computadora entrada — (-25, 3) — REDUCIDO para no bloquear el pasillo
+    if (hitBox(-26.0f, -24.5f, 2.5f, 4.2f))  cameraPos = previousPos;
 
-    // Mesa 2 (debajo computadora) — (-25, 3)
-    if (hitBox(-26.5f, -23.5f, 1.5f, 4.5f)) cameraPos = previousPos;
+    // Mesa 2 (debajo computadora) — (-25, 3) — REDUCIDO para no bloquear el pasillo
+    if (hitBox(-26.5f, -24.0f, 2.2f, 4.5f)) cameraPos = previousPos;
 
     // Mesa habitacion 1 — (12, 18)
     if (hitBox(10.0f, 14.5f, 16.5f, 19.5f)) cameraPos = previousPos;
@@ -862,6 +897,25 @@ void processInput(GLFWwindow* window)
     // Lamparas de techo (4) - Colision en el suelo justo debajo de ellas
     for (glm::vec3 p : {glm::vec3(-14.5f, 0.0f, 0.0f), glm::vec3(12.2f, 0.0f, 21.3f), glm::vec3(-4.9f, 0.0f, -22.4f), glm::vec3(58.4f, 0.0f, -27.5f)})
         if (hitBox(p.x - 0.8f, p.x + 0.8f, p.z - 0.8f, p.z + 0.8f)) cameraPos = previousPos;
+    // =====================================
+    // COLISIONES - HABITACIÓN FINAL
+    // =====================================
+
+    // Cajas amontonadas 3, 4, 5 (fila Z = -1.8)
+    for (float sx : {116.4f, 120.4f, 124.4f})
+        if (hitBox(sx - 2.0f, sx + 2.0f, -3.8f, 0.2f)) cameraPos = previousPos;
+
+    // Cajas amontonadas 6, 7, 8 (fila Z = -5.0)
+    for (float sx : {116.4f, 120.4f, 124.4f})
+        if (hitBox(sx - 2.0f, sx + 2.0f, -7.0f, -3.0f)) cameraPos = previousPos;
+
+    // Cuerpos 1, 2, 3, 4 (fila Z = -10.0)
+    for (float sx : {110.0f, 115.0f, 120.0f, 125.0f})
+        if (hitBox(sx - 0.8f, sx + 0.8f, -10.8f, -9.2f)) cameraPos = previousPos;
+
+    // Cuerpos 5, 6, 7 (fila Z = -0.0005)
+    for (float sx : {125.0f, 120.0f, 115.0f})
+        if (hitBox(sx - 0.8f, sx + 0.8f, -0.8f, 0.8f)) cameraPos = previousPos;
 
 }
 
@@ -919,9 +973,9 @@ int main()
         ma_engine_play_sound(&audioEngine, "Sonidos/ambient.wav", NULL);
     }
 
-    if (ma_sound_init_from_file(&audioEngine, "Sonidos/footstepLoop.wav",
-        0, NULL, NULL, &footstepsSound) == MA_SUCCESS) {
-        ma_sound_set_looping(&footstepsSound, MA_TRUE);
+    // ──PASOS ──
+    if (ma_sound_init_from_file(&audioEngine, "Sonidos/footstepLoop.wav", 0, NULL, NULL, &footstepsSound) == MA_SUCCESS) {
+        ma_sound_set_looping(&footstepsSound, MA_FALSE);
         footstepsInitialized = true;
     }
 
@@ -1045,22 +1099,10 @@ int main()
     enemy.chaseSpeed = 3.0f;
     enemy.fleeSpeed = 7.0f;
     enemy.flashAngleDeg = 25.0f;
-
-    // FIX: escala y corrección de eje del modelo (antes faltaba en este
-    // Main.cpp y el enemigo se veía acostado y muy pequeño).
-    // El laberinto está escalado x2 (MAZE_SCALE), así que el enemigo
-    // necesita esta escala para medir ~1.8-2.0m dentro del mundo.
-    //
-    // AJUSTE MANUAL: si se ve MUY grande, baja modelScale (ej. 0.012f).
-    // Si se ve MUY chico, súbelo (ej. 0.025f).
     enemy.modelScale = 0.018f;
 
-    // AJUSTE MANUAL: si sigue viéndose acostado/de lado, prueba en orden:
-    // 90.0f, 180.0f, 0.0f
     enemy.pitchCorrectionDeg = 90.0f;
 
-    // FIX: el enemigo ahora respeta las paredes del laberinto al
-    // perseguir/huir, usando las mismas zonas válidas que el jugador.
     enemy.collisionCheck = [](glm::vec3 pos) -> bool {
         return InAnyMazeZone(pos);
         };
@@ -1204,9 +1246,52 @@ int main()
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
+
         processInput(window);
 
-        // ── Sonido de pasos ──
+        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS &&
+            !escPressed)
+        {
+            escPressed = true;
+
+            pauseMenuOpen = !pauseMenuOpen;
+
+            if (pauseMenuOpen)
+            {
+                glfwSetInputMode(
+                    window,
+                    GLFW_CURSOR,
+                    GLFW_CURSOR_NORMAL
+                );
+            }
+            else
+            {
+                glfwSetInputMode(
+                    window,
+                    GLFW_CURSOR,
+                    GLFW_CURSOR_DISABLED
+                );
+
+                firstMouse = true;
+            }
+        }
+
+        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_RELEASE)
+        {
+            escPressed = false;
+        }
+
+        // Presiona la tecla 'C' para imprimir las coordenadas en la consola
+        static bool cPressed = false;
+        if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS && !cPressed) {
+            cPressed = true;
+            std::cout << "Coordenadas habitacion vacia: X = " << cameraPos.x << ", Z = " << cameraPos.z << std::endl;
+        }
+        if (glfwGetKey(window, GLFW_KEY_C) == GLFW_RELEASE) {
+            cPressed = false;
+        }
+
+        // ── Sonido de pasos con ritmo controlado ──
         if (footstepsInitialized) {
             bool moviendose = (
                 glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS ||
@@ -1216,17 +1301,32 @@ int main()
                 ) && onGround && !pauseMenuOpen && !minijuegoActivo && !cursorFree;
 
             if (moviendose) {
-                // Pasos mas suaves al agacharse, normales al caminar/correr
-                float volPasos = isCrouching ? 0.15f : (isRunning ? 0.9f : 0.6f);
+                // Asignamos el volumen según el estado
+                float volPasos = isCrouching ? 0.10f : (isRunning ? 0.65f : 0.40f);
                 ma_sound_set_volume(&footstepsSound, volPasos);
-                if (!ma_sound_is_playing(&footstepsSound))
-                    ma_sound_start(&footstepsSound);
+
+                float intervaloPasos = isCrouching ? 0.8f : (isRunning ? 0.32f : 0.55f);
+
+                // El temporizador avanza con el tiempo real del juego
+                stepTimer += deltaTime;
+
+                // Si ya pasó el tiempo suficiente, disparamos un único paso limpio
+                if (stepTimer >= intervaloPasos) {
+                    if (ma_sound_is_playing(&footstepsSound)) {
+                        ma_sound_stop(&footstepsSound);
+                    }
+
+                    ma_sound_seek_to_pcm_frame(&footstepsSound, 0); // Regresa el audio al inicio
+                    ma_sound_start(&footstepsSound);               // 
+                    stepTimer = 0.0f;                               // Reinicia el reloj
+                }
             }
             else {
-                if (ma_sound_is_playing(&footstepsSound))
-                    ma_sound_stop(&footstepsSound);
+                // Si el jugador se detiene, reiniciamos el reloj para que el siguiente paso suene al instante
+                stepTimer = 0.5f;
             }
         }
+        // ── CONSUMO DE BATERÍA ──
         if (flashlightOn) {
             battery -= 0.5f * deltaTime;
             if (battery < 0.0f) { battery = 0.0f; flashlightOn = false; }
@@ -1236,13 +1336,6 @@ int main()
             if (flickerTimer > 0.08f) { flickerTimer = 0.0f; flickerState = !flickerState; }
         }
         else flickerState = true;
-
-        // ── FIX: Volumen de audio desde menú ──
-        if (g_Menu) {
-            float vol = g_Menu->volume;
-            ma_engine_set_volume(&audioEngine, vol);
-        }
-
         glClearColor(0, 0, 0, 1);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glUseProgram(shaderProgram);
@@ -1251,10 +1344,15 @@ int main()
         glUniform1i(glGetUniformLocation(shaderProgram, "lampara2On"), lampara2Activa ? 1 : 0);
         glUniform1i(glGetUniformLocation(shaderProgram, "lampara3On"), lampara3Activa ? 1 : 0);
         glUniform1i(glGetUniformLocation(shaderProgram, "lampara4On"), lampara4Activa ? 1 : 0);
+        glUniform1i(glGetUniformLocation(shaderProgram, "lampara5On"), lampara5Activa ? 1 : 0);  
+        glUniform1i(glGetUniformLocation(shaderProgram, "lampara6On"), lampara6Activa ? 1 : 0);  
         glUniform3fv(glGetUniformLocation(shaderProgram, "lampPos"), 1, glm::value_ptr(lampEntrada));
         glUniform3fv(glGetUniformLocation(shaderProgram, "lampPos2"), 1, glm::value_ptr(lampHab1));
         glUniform3fv(glGetUniformLocation(shaderProgram, "lampPos3"), 1, glm::value_ptr(lampHab2));
         glUniform3fv(glGetUniformLocation(shaderProgram, "lampPos4"), 1, glm::value_ptr(lampHab3));
+        glUniform3fv(glGetUniformLocation(shaderProgram, "lampPos5"), 1, glm::value_ptr(lampHab4));  
+        glUniform3fv(glGetUniformLocation(shaderProgram, "lampPos6"), 1, glm::value_ptr(lampHab5));  
+
         glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0);
 
         glm::vec3 flashlightTip = cameraPos + cameraFront * 0.6f + glm::vec3(0.25f, -0.20f, 0.0f);
@@ -1350,8 +1448,20 @@ int main()
             else if (cableActual == 2 && glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS && bSoltado) {
                 minijuegoActivo = false; cableActual = 0; ePressedPowerbox = false;
                 rSoltado = gSoltado = bSoltado = false;
-                if (powerboxActual == 1) { powerbox1Activado = true; lampara3Activa = true; lampara1Activa = true; }
-                else if (powerboxActual == 2) { powerbox2Activado = true; lampara4Activa = true; lampara2Activa = true; }
+
+                // ✅ Activar lámparas según el powerbox
+                if (powerboxActual == 1) {
+                    powerbox1Activado = true;
+                    lampara3Activa = true;
+                    lampara1Activa = true;
+                    lampara5Activa = true;  
+                }
+                else if (powerboxActual == 2) {
+                    powerbox2Activado = true;
+                    lampara4Activa = true;
+                    lampara2Activa = true;
+                    lampara6Activa = true;  
+                }
             }
             else if (cableActual > 0 &&
                 ((glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS && rSoltado) ||
@@ -1494,30 +1604,35 @@ int main()
         }
 
 
+        // ✅ Se limpian las banderas de las 6 puertas al soltar la tecla E
         if (glfwGetKey(window, GLFW_KEY_E) == GLFW_RELEASE) {
-            ePressed = false;
-            ePressed2 = false;
+            ePressed = false;  ePressed2 = false; ePressed3 = false;
+            ePressed4 = false; ePressed5 = false; ePressed6 = false;
         }
 
-        // Animación de apertura
-        if (doorOpen && doorAngle < 90.0f) doorAngle += 120.0f * deltaTime;
-        if (!doorOpen && doorAngle > 0.0f)  doorAngle -= 120.0f * deltaTime;
+        // ── Animación de apertura y cierre diferenciado ──
+        // Velocidad normal al abrir, pero bajan en bomba al cerrar para que se vea el portazo duro 🔥
+        float velAbrir = 120.0f;
+        float velCerrar = 360.0f;
 
-        if (door2Open && door2Angle < 90.0f) door2Angle += 120.0f * deltaTime;
-        if (!door2Open && door2Angle > 0.0f)  door2Angle -= 120.0f * deltaTime;
+        // Puertas 1, 2, 6 (ángulo inicial 0)
+        if (doorOpen && doorAngle < 90.0f) doorAngle +=  velAbrir * deltaTime;
+        if (!doorOpen && doorAngle > 0.0f) doorAngle -=  velCerrar * deltaTime;
 
-        if (door3Open && door3Angle < 90.0f) door3Angle += 120.0f * deltaTime;
-        if (!door3Open && door3Angle > 0.0f)  door3Angle -= 120.0f * deltaTime;
+        if (door2Open && door2Angle < 90.0f) door2Angle +=  velAbrir * deltaTime;
+        if (!door2Open && door2Angle > 0.0f) door2Angle -=  velCerrar * deltaTime;
+        // Puertas 3, 4, 5 (ángulo inicial -90)
+        if (door3Open && door3Angle < 90.0f) door3Angle +=  velAbrir * deltaTime;
+        if (!door3Open && door3Angle > -90.0f) door3Angle -=  velCerrar * deltaTime;
 
-        if (door4Open && door4Angle < 90.0f) door4Angle += 120.0f * deltaTime;
-        if (!door4Open && door4Angle > 0.0f)  door4Angle -= 120.0f * deltaTime;
+        if (door4Open && door4Angle < 90.0f) door4Angle +=  velAbrir * deltaTime;
+        if (!door4Open && door4Angle > -90.0f) door4Angle -=  velCerrar * deltaTime;
 
-        if (door5Open && door5Angle < 90.0f) door5Angle += 120.0f * deltaTime;
-        if (!door5Open && door5Angle > 0.0f)  door5Angle -= 120.0f * deltaTime;
+        if (door5Open && door5Angle < 90.0f) door5Angle +=  velAbrir * deltaTime;
+        if (!door5Open && door5Angle > -90.0f) door5Angle -=  velCerrar * deltaTime;
 
-        if (door6Open && door6Angle < 90.0f) door6Angle += 120.0f * deltaTime;
-        if (!door6Open && door6Angle > 0.0f)  door6Angle -= 120.0f * deltaTime;
-
+        if (door6Open && door6Angle < 90.0f) door6Angle +=  velAbrir * deltaTime;
+        if (!door6Open && door6Angle > 0.0f) door6Angle -=  velCerrar * deltaTime;
         // ── DIBUJAR PUERTAS ──
         {
             // Puerta 1 — Marco2 (Habitacion derecha/ el que necesita llave)
@@ -1958,6 +2073,97 @@ int main()
             glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(t));
             cajas2Model.Draw(shaderProgram); glBindVertexArray(VAO); glBindTexture(GL_TEXTURE_2D, 0);
         }
+        //cajas amontonadas 3
+        {
+            glm::mat4 t = glm::mat4(1); t = glm::translate(t, glm::vec3(116.4f, MAZE_FLOOR_Y + 0.7f, -1.8f));
+            t = glm::rotate(t, glm::radians(-180.0f), glm::vec3(0, 1, 0)); t = glm::scale(t, glm::vec3(2.0f));
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(t));
+            cajas2Model.Draw(shaderProgram); glBindVertexArray(VAO); glBindTexture(GL_TEXTURE_2D, 0);
+        }
+        //cajas amontonadas 4
+        {
+            glm::mat4 t = glm::mat4(1); t = glm::translate(t, glm::vec3(120.4f, MAZE_FLOOR_Y + 0.7f, -1.8f));
+            t = glm::rotate(t, glm::radians(-180.0f), glm::vec3(0, 1, 0)); t = glm::scale(t, glm::vec3(2.0f));
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(t));
+            cajas2Model.Draw(shaderProgram); glBindVertexArray(VAO); glBindTexture(GL_TEXTURE_2D, 0);
+        }
+        //cajas amontonadas 5
+        {
+            glm::mat4 t = glm::mat4(1); t = glm::translate(t, glm::vec3(124.4f, MAZE_FLOOR_Y + 0.7f, -1.8f));
+            t = glm::rotate(t, glm::radians(-180.0f), glm::vec3(0, 1, 0)); t = glm::scale(t, glm::vec3(2.0f));
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(t));
+            cajas2Model.Draw(shaderProgram); glBindVertexArray(VAO); glBindTexture(GL_TEXTURE_2D, 0);
+        }
+        //cajas amontonadas 6
+        {
+            glm::mat4 t = glm::mat4(1); t = glm::translate(t, glm::vec3(116.4f, MAZE_FLOOR_Y + 0.7f, -5.0f));
+            t = glm::rotate(t, glm::radians(-180.0f), glm::vec3(0, 1, 0)); t = glm::scale(t, glm::vec3(2.0f));
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(t));
+            cajas2Model.Draw(shaderProgram); glBindVertexArray(VAO); glBindTexture(GL_TEXTURE_2D, 0);
+        }
+        //cajas amontonadas 7
+        {
+            glm::mat4 t = glm::mat4(1); t = glm::translate(t, glm::vec3(120.4f, MAZE_FLOOR_Y + 0.7f, -5.0f));
+            t = glm::rotate(t, glm::radians(-180.0f), glm::vec3(0, 1, 0)); t = glm::scale(t, glm::vec3(2.0f));
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(t));
+            cajas2Model.Draw(shaderProgram); glBindVertexArray(VAO); glBindTexture(GL_TEXTURE_2D, 0);
+        }
+        //cajas amontonadas 8
+        {
+            glm::mat4 t = glm::mat4(1); t = glm::translate(t, glm::vec3(124.4f, MAZE_FLOOR_Y + 0.7f, -5.0f));
+            t = glm::rotate(t, glm::radians(-180.0f), glm::vec3(0, 1, 0)); t = glm::scale(t, glm::vec3(2.0f));
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(t));
+            cajas2Model.Draw(shaderProgram); glBindVertexArray(VAO); glBindTexture(GL_TEXTURE_2D, 0);
+        }
+        //cuerpo 1
+        {
+            glm::mat4 t = glm::mat4(1); t = glm::translate(t, glm::vec3(110.0f, MAZE_FLOOR_Y + 0.2f, -10.0f));
+            t = glm::rotate(t, glm::radians(-270.0f), glm::vec3(0, 1, 0)); t = glm::scale(t, glm::vec3(0.01f));
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(t));
+            cuerpoModel.Draw(shaderProgram); glBindVertexArray(VAO); glBindTexture(GL_TEXTURE_2D, 0);
+        }
+        //cuerpo 2
+        {
+            glm::mat4 t = glm::mat4(1); t = glm::translate(t, glm::vec3(115.0f, MAZE_FLOOR_Y + 0.2f, -10.0f));
+            t = glm::rotate(t, glm::radians(-270.0f), glm::vec3(0, 1, 0)); t = glm::scale(t, glm::vec3(0.01f));
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(t));
+            cuerpoModel.Draw(shaderProgram); glBindVertexArray(VAO); glBindTexture(GL_TEXTURE_2D, 0);
+        }
+        //cuerpo 3
+        {
+            glm::mat4 t = glm::mat4(1); t = glm::translate(t, glm::vec3(120.0f, MAZE_FLOOR_Y + 0.2f, -10.0f));
+            t = glm::rotate(t, glm::radians(-270.0f), glm::vec3(0, 1, 0)); t = glm::scale(t, glm::vec3(0.01f));
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(t));
+            cuerpoModel.Draw(shaderProgram); glBindVertexArray(VAO); glBindTexture(GL_TEXTURE_2D, 0);
+        }
+        //cuerpo 4
+        {
+            glm::mat4 t = glm::mat4(1); t = glm::translate(t, glm::vec3(125.0f, MAZE_FLOOR_Y + 0.2f, -10.0f));
+            t = glm::rotate(t, glm::radians(-270.0f), glm::vec3(0, 1, 0)); t = glm::scale(t, glm::vec3(0.01f));
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(t));
+            cuerpoModel.Draw(shaderProgram); glBindVertexArray(VAO); glBindTexture(GL_TEXTURE_2D, 0);
+        }
+        //cuerpo 5
+        {
+            glm::mat4 t = glm::mat4(1); t = glm::translate(t, glm::vec3(125.0f, MAZE_FLOOR_Y + 0.2f, -0.0005f));
+            t = glm::rotate(t, glm::radians(-270.0f), glm::vec3(0, 1, 0)); t = glm::scale(t, glm::vec3(0.01f));
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(t));
+            cuerpoModel.Draw(shaderProgram); glBindVertexArray(VAO); glBindTexture(GL_TEXTURE_2D, 0);
+        }
+        //cuerpo 6
+        {
+            glm::mat4 t = glm::mat4(1); t = glm::translate(t, glm::vec3(120.0f, MAZE_FLOOR_Y + 0.2f, -0.0005f));
+            t = glm::rotate(t, glm::radians(-270.0f), glm::vec3(0, 1, 0)); t = glm::scale(t, glm::vec3(0.01f));
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(t));
+            cuerpoModel.Draw(shaderProgram); glBindVertexArray(VAO); glBindTexture(GL_TEXTURE_2D, 0);
+        }
+        //cuerpo 7
+        {
+            glm::mat4 t = glm::mat4(1); t = glm::translate(t, glm::vec3(115.0f, MAZE_FLOOR_Y + 0.2f, -0.0005f));
+            t = glm::rotate(t, glm::radians(-270.0f), glm::vec3(0, 1, 0)); t = glm::scale(t, glm::vec3(0.01f));
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(t));
+            cuerpoModel.Draw(shaderProgram); glBindVertexArray(VAO); glBindTexture(GL_TEXTURE_2D, 0);
+        }
         //consola
         {
             glm::mat4 t = glm::mat4(1); t = glm::translate(t, glm::vec3(30.0f, MAZE_FLOOR_Y , 67.0f));
@@ -2035,21 +2241,21 @@ int main()
             glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(t));
             pizarraModel.Draw(shaderProgram); glBindVertexArray(VAO); glBindTexture(GL_TEXTURE_2D, 0);
         }
-        //cuerpo 1
+        //cuerpo 8
         {
             glm::mat4 t = glm::mat4(1); t = glm::translate(t, glm::vec3(52.0f, MAZE_FLOOR_Y + 0.2f, 41.0f));
             t = glm::rotate(t, glm::radians(-270.0f), glm::vec3(0, 1, 0)); t = glm::scale(t, glm::vec3(0.01f));
             glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(t));
             cuerpoModel.Draw(shaderProgram); glBindVertexArray(VAO); glBindTexture(GL_TEXTURE_2D, 0);
         }
-        //cuerpo 2
+        //cuerpo 9
         {
             glm::mat4 t = glm::mat4(1); t = glm::translate(t, glm::vec3(52.0f, MAZE_FLOOR_Y + 0.2f, 45.0f));
             t = glm::rotate(t, glm::radians(-180.0f), glm::vec3(0, 1, 0)); t = glm::scale(t, glm::vec3(0.01f));
             glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(t));
             cuerpoModel.Draw(shaderProgram); glBindVertexArray(VAO); glBindTexture(GL_TEXTURE_2D, 0);
         }
-        //cuerpo 3
+        //cuerpo 10
         {
             glm::mat4 t = glm::mat4(1); t = glm::translate(t, glm::vec3(64.0f, MAZE_FLOOR_Y + 0.2f, 45.0f));
             t = glm::rotate(t, glm::radians(-360.0f), glm::vec3(0, 1, 0)); t = glm::scale(t, glm::vec3(0.01f));
@@ -2113,16 +2319,29 @@ int main()
             glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(t));
             chandelierModel.Draw(shaderProgram); glBindVertexArray(VAO); glBindTexture(GL_TEXTURE_2D, 0);
         }
+        {
+            glm::mat4 t = glm::mat4(1);
+            t = glm::translate(t, glm::vec3(lampHab4.x, MAZE_CEILING_Y - 0.2f, lampHab4.z));
+            t = glm::scale(t, glm::vec3(0.6f));
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(t));
+            chandelierModel.Draw(shaderProgram); glBindVertexArray(VAO); glBindTexture(GL_TEXTURE_2D, 0);
+        }
+        {
+            glm::mat4 t = glm::mat4(1);
+            t = glm::translate(t, glm::vec3(lampHab5.x, MAZE_CEILING_Y - 0.2f, lampHab5.z));
+            t = glm::scale(t, glm::vec3(0.6f));
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(t));
+            chandelierModel.Draw(shaderProgram); glBindVertexArray(VAO); glBindTexture(GL_TEXTURE_2D, 0);
+        }
+
 
         // =====================================
         // ENEMY IA
         // =====================================
         {
-            bool jugadorEnZonaEnemigo = glm::distance(cameraPos, enemy.position) < 30.0f;
-            if (jugadorEnZonaEnemigo)
-                enemy.Update(deltaTime, cameraPos, cameraFront, flashlightTip, finalFlashlightState);
+            enemy.Update(deltaTime, cameraPos, cameraFront, flashlightTip, finalFlashlightState);
 
-            glUniform1i(glGetUniformLocation(shaderProgram, "animated"), 0);
+            glUniform1i(glGetUniformLocation(shaderProgram, "animated"), 1);
             enemy.Draw(shaderProgram);
             glUniform1i(glGetUniformLocation(shaderProgram, "animated"), 0);
         }
@@ -2130,10 +2349,11 @@ int main()
         // =====================================
         // GAME OVER — Enemy te atrapa
         // =====================================
-        if (glm::distance(cameraPos, enemy.position) < 1.5f)
+        if (glm::distance(cameraPos, enemy.position) < 3.0f)
         {
+            std::cout << "¡GAME OVER! Distancia: " << glm::distance(cameraPos, enemy.position) << std::endl;
             g_GameState = GameState::GAME_OVER;
-            ma_engine_play_sound(&audioEngine, "Sonidos/jumpscare.wav", NULL);
+            ma_engine_play_sound(&audioEngine, "Sonidos/jumspcare.wav", NULL);
         }
 
         // =====================================
@@ -2342,11 +2562,11 @@ int main()
             }
         }
 
-        if (powerbox1Activado || lampara3Activa || lampara1Activa)
-            RenderizarTexto(hudX, (int)(SCREEN_H * 0.140f), "Room 1 lamp: ON and Room 2 lamp: ON",
+        if (powerbox1Activado || lampara3Activa || lampara1Activa || lampara5Activa)
+            RenderizarTexto(hudX, (int)(SCREEN_H * 0.140f), "Room 1 lamp: ON and Room 2 lamp: ON and Cabinet Hall lamp: ON",
                 (int)(SCREEN_W / HUD_SCALE), (int)(SCREEN_H / HUD_SCALE));
-        if (powerbox2Activado || lampara4Activa || lampara2Activa)
-            RenderizarTexto(hudX, (int)(SCREEN_H * 0.182f), "Room 3 lamp: ON and Room 4 lamp: ON",
+        if (powerbox2Activado || lampara4Activa || lampara2Activa || lampara6Activa)
+            RenderizarTexto(hudX, (int)(SCREEN_H * 0.182f), "Room 3 lamp: ON and Room 4 lamp: ON and Final Room lamp: ON",
                 (int)(SCREEN_W / HUD_SCALE), (int)(SCREEN_H / HUD_SCALE));
 
         if (cursorFree && !pauseMenuOpen)
@@ -2376,6 +2596,7 @@ int main()
         {
             GameState pauseResult = g_Menu->HandlePauseInput(window, mouseX, mouseY);
             g_Menu->RenderPause(mouseX, mouseY);
+
             if (pauseResult == GameState::PLAYING) {
                 ma_engine_play_sound(&audioEngine, "Sonidos/menu_select.wav", NULL);
                 pauseMenuOpen = false;
@@ -2384,10 +2605,12 @@ int main()
             }
             else if (pauseResult == GameState::MENU) {
                 ma_engine_play_sound(&audioEngine, "Sonidos/menu_select.wav", NULL);
-                pauseMenuOpen = false; g_GameState = GameState::MENU;
+                pauseMenuOpen = false;
+                g_GameState = GameState::MENU;
                 glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
                 cursorFree = false;
             }
+            // Si es PAUSED, no hace nada - el menú sigue abierto
         }
 
         // ── GAME OVER / VICTORY ──

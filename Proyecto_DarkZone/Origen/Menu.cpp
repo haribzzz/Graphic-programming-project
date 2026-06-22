@@ -359,16 +359,16 @@ void Menu::Render(double mx, double my)
         DrawText2D("Developed by:",
             cx - screenW * 0.09f, screenH * 0.40f,
             textScale, 0.7f, 0.7f, 0.7f);
-        DrawText2D("Aura Abihail Robleto Valdivia",
+        DrawText2D("Robleto Valdivia Aura Abihail",
             cx - screenW * 0.15f, screenH * 0.46f,
             textScale, 0.9f, 0.9f, 0.9f);
-        DrawText2D("Idhe Isabel Cross Ramirez",
+        DrawText2D("Cross Ramirez Idhe Isabel",
             cx - screenW * 0.13f, screenH * 0.51f,
             textScale, 0.9f, 0.9f, 0.9f);
-        DrawText2D("Harisema Milagros Ampie Amaya",
+        DrawText2D("Ampie Amaya Harisema Milagros",
             cx - screenW * 0.15f, screenH * 0.56f,
             textScale, 0.9f, 0.9f, 0.9f);
-        DrawText2D("Edith Maria Rayo Rocha",
+        DrawText2D("Rayo Rocha Edith Maria",
             cx - screenW * 0.11f, screenH * 0.61f,
             textScale, 0.9f, 0.9f, 0.9f);
 
@@ -408,16 +408,15 @@ void Menu::RenderPause(double mx, double my)
         float titleScale = screenH * 0.013f;
         float hintScale = screenH * 0.003f;
 
-        DrawText2D("PAUSED",
+        // Línea ~380-390 aprox:
+        DrawText2D("PAUSED",  // ← Cambiar a:
             cx - screenW * 0.09f, py + ph * 0.08f,
             titleScale, 0.8f, 0.0f, 0.0f);
 
-        DrawRect(px + pw * 0.05f, py + ph * 0.22f,
-            pw * 0.90f, 2.0f, 0.6f, 0.0f, 0.0f, 1.0f);
-
-        DrawBtn(btnResume);
-        DrawBtn(btnPauseOptions);
-        DrawBtn(btnMainMenu);
+        // Y los botones:
+        DrawBtn(btnResume);      // "RESUME" → "Continuar"
+        DrawBtn(btnPauseOptions); // "OPTIONS" → "Opciones"
+        DrawBtn(btnMainMenu);    // "MAIN MENU" → "Menú Principal"
 
         DrawText2D("Press ESC to continue",
             cx - screenW * 0.09f, py + ph * 0.88f,
@@ -572,7 +571,7 @@ GameState Menu::HandlePauseInput(GLFWwindow* window, double mx, double my)
     }
 
     if (!clicking) mousePressed = false;
-    return GameState::MENU;
+    return GameState::PAUSED;
 }
 
 void Menu::RenderEndScreen(double mx, double my, bool isVictory)
