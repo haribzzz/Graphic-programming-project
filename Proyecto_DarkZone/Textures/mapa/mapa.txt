@@ -1,1 +1,0 @@
-para que el mapa sea un objeto visible en el proyecto, primero se tiene que descomprimir y luego agregarlo con las demas texturas(objetos visibles)
