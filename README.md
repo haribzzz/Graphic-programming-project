@@ -95,12 +95,23 @@ Replace `USERNAME` and `REPOSITORY` with the corresponding GitHub repository inf
 
 ---
 
-## How to Run the Project
+## 📥 How to download and run the project (USERS)
+1. Click on the download link provided in this repository.
+2. You will be redirected to a compressed file named DarkZone_Ejecutable.zip.
+3. Click on the file to start the download.
+4. Once downloaded, extract the ZIP file on your computer.
+5. Open the extracted folder and run Proyecto.exe.
 
+## ⚠️ Important (Windows SmartScreen)
+When running the program, a red Windows security warning may appear.
+1. Click on “More info”.
+2. Then select “Run anyway”.
+3. The project will open successfully and you can test the final computer graphics project.
+
+## How to run the project from source (DEVELOPERS)
 1. Clone the repository.
 2. Open the project in Visual Studio.
 3. Make sure all required libraries are properly configured:
-
    * GLFW
    * GLAD
    * GLM
