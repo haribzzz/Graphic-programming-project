@@ -1,1 +1,1 @@
-
+en el caso de Colisiones.Zip, se tiene que descomprimir para que funcione en en proyecto
