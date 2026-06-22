@@ -3,15 +3,15 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <string>
-enum class GameState
-{
+enum class GameState {
     MENU,
     PLAYING,
-    OPTIONS,
-    CREDITS,
+    EXIT,
     GAME_OVER,
     VICTORY,
-    EXIT
+    OPTIONS,
+    CREDITS,
+    PAUSED  // <-- Agrega esto
 };
 struct MenuButton
 {
