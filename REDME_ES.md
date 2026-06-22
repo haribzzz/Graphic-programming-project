@@ -99,22 +99,31 @@ cd Graphic-programming-project
 
 ---
 
-## Cómo Ejecutar el Proyecto
+## 📥 Cómo descargar y ejecutar el proyecto (USUARIOS)
+1. Haz clic en el enlace de descarga proporcionado en este repositorio.
+2. Serás redirigido a un archivo comprimido llamado DarkZone_Ejecutable.zip.
+3. Haz clic en el archivo para iniciar la descarga.
+4. Una vez descargado, descomprime el archivo en tu computadora.
+5. Abre la carpeta descomprimida y ejecuta Proyecto.exe.
+
+## ⚠️ Importante (Windows SmartScreen)
+Al ejecutar el programa, puede aparecer una pantalla de advertencia roja de Windows.
+
+1. Haz clic en “Más información”.
+2. Luego selecciona “Ejecutar de todas formas”.
+3. El proyecto se abrirá correctamente y podrás probar el proyecto final de programación gráfica.
+
+## Cómo ejecutar el proyecto desde código (DESARROLLADORES)
 
 1. Clonar el repositorio.
-
 2. Abrir el proyecto en Visual Studio.
-
 3. Asegurarse de que las siguientes bibliotecas estén correctamente configuradas:
-
    * GLFW
    * GLAD
    * GLM
    * Assimp
    * miniaudio
-
 4. Compilar la solución.
-
 5. Ejecutar el programa.
 
 ---
