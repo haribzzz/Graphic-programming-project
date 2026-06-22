@@ -1,0 +1,394 @@
+# Blender 5.1.2 MTL File: 'Laboratorio (1).blend'
+# www.blender.org
+
+newmtl Door.002
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Image_0.003.jpg
+map_Bump -bm 1.000000 Image_2.003.jpg
+
+newmtl DoorBordure.002
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Image_0.003.jpg
+map_Bump -bm 1.000000 Image_2.003.jpg
+
+newmtl DoorCableConnector.002
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Image_0.003.jpg
+map_Bump -bm 1.000000 Image_2.003.jpg
+
+newmtl DoorFrameExtern.004
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Image_0.003.jpg
+map_Bump -bm 1.000000 Image_2.003.jpg
+
+newmtl DoorFrameExtern.005
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Image_0.003.jpg
+map_Bump -bm 1.000000 Image_2.003.jpg
+
+newmtl DoorFrameIntern.002
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Image_0.003.jpg
+map_Bump -bm 1.000000 Image_2.003.jpg
+
+newmtl DoorGlasses.002
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Image_0.003.jpg
+map_Bump -bm 1.000000 Image_2.003.jpg
+
+newmtl DoorHolder.002
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Image_0.003.jpg
+map_Bump -bm 1.000000 Image_2.003.jpg
+
+newmtl DoorVerinAluminum.002
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Image_0.003.jpg
+map_Bump -bm 1.000000 Image_2.003.jpg
+
+newmtl Glass
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 2
+map_Kd Image_3.001.jpg
+map_d Image_3.001.jpg
+map_Bump -bm 1.000000 Image_5.jpg
+
+newmtl Glass.001
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 2
+map_Kd Image_3.004.jpg
+map_d Image_3.004.jpg
+map_Bump -bm 1.000000 Image_5.002.jpg
+
+newmtl Handel.002
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Image_0.003.jpg
+map_Bump -bm 1.000000 Image_2.003.jpg
+
+newmtl Material.002
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 2
+map_Kd HospitalDoorV2_Material.001_BaseColor.jpg
+map_Ns HospitalDoorV2_Material.001_Roughness.jpg
+map_refl HospitalDoorV2_Material.001_Metallic.jpg
+map_d HospitalDoorV2_Material.001_BaseColor.jpg
+map_Bump -bm 1.000000 HospitalDoorV2_Material.001_Normal.jpg
+
+newmtl Material.003
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 2
+map_Kd HospitalDoorV2_Material.001_BaseColor.jpg
+map_Ns HospitalDoorV2_Material.001_Roughness.jpg
+map_refl HospitalDoorV2_Material.001_Metallic.jpg
+map_d HospitalDoorV2_Material.001_BaseColor.jpg
+map_Bump -bm 1.000000 HospitalDoorV2_Material.001_Normal.jpg
+
+newmtl Material_Pared1
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd -s 1 4 1 pared.jpg
+
+newmtl Material_Pared2
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd -s 1 8 1 pared.jpg
+
+newmtl Material_Pared2.001
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd -s 1 8 1 pared.jpg
+
+newmtl Material_Pared2.002
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd -s 1 8 1 pared.jpg
+
+newmtl Material_Pared2.003
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd -s 1 8 1 pared.jpg
+
+newmtl Material_Pared2.004
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd -s 1 8 1 pared.jpg
+
+newmtl Material_Pared2.005
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd -s 1 8 1 pared.jpg
+
+newmtl Material_Pared3
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd -s 1 8 1 pared.jpg
+
+newmtl Material_Suelo.001
+Ns 846.667175
+Ka 0.172414 0.172414 0.172414
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd -s 20 10 1 suelo.jpg
+
+newmtl Material_Suelo.002
+Ns 846.667175
+Ka 0.172414 0.172414 0.172414
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd -s 8 20 1 suelo.jpg
+
+newmtl Material_Suelo.003
+Ns 846.667175
+Ka 0.172414 0.172414 0.172414
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd -s 8 20 1 suelo.jpg
+
+newmtl Material_Suelo.004
+Ns 846.667175
+Ka 0.172414 0.172414 0.172414
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd -s 20 10 1 suelo.jpg
+
+newmtl Material_Suelo.005
+Ns 846.667175
+Ka 0.172414 0.172414 0.172414
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd -s 6 10 1 suelo.jpg
+
+newmtl Material_Techo
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd -s 24 24 1 arriba.jpg
+
+newmtl Scene_-_Root
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Image_0.008.jpg
+
+newmtl Window
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Image_0.001.jpg
+map_Bump -bm 1.000000 Image_2.001.jpg
+
+newmtl Window.001
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Image_0.004.jpg
+map_Bump -bm 1.000000 Image_2.004.jpg
+
+newmtl WindowFrame.002
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Image_0.003.jpg
+map_Bump -bm 1.000000 Image_2.003.jpg
+
+newmtl material
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Image_0.005.jpg
+map_Bump -bm 1.000000 Image_2.005.jpg
+
+newmtl material.001
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Image_0.006.jpg
+map_Bump -bm 1.000000 Image_2.006.jpg
+
+newmtl material.002
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Image_0.007.jpg
+map_Bump -bm 1.000000 Image_2.007.jpg
+
+newmtl material_1
+Ns 1000.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 3
+map_Kd Image_3.005.jpg
+
+newmtl material_1.001
+Ns 1000.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 3
+map_Kd Image_3.006.jpg
